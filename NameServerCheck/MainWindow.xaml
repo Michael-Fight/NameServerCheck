@@ -1,0 +1,48 @@
+﻿<Window x:Class="NameServerCheck.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NameServerCheck"
+        mc:Ignorable="d"
+        Title="Name Server Check" Height="600" Width="800" MinWidth="800" MinHeight="600">
+    <Grid>
+        <TextBlock Margin="0,20,0,0" Text="Domain Informationen abfragen" FontSize="26" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" d:IsLocked="True"/>
+        <TextBlock HorizontalAlignment="Left" Margin="300,70,0,0" Text="Nameserver:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,70,0,0" Text="Domain:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox Name="domainTextBox" HorizontalAlignment="Left" Margin="90,70,0,0" VerticalAlignment="Top" Width="190" KeyUp="domainTextBox_KeyUp" Height="20"/>
+        <ComboBox Name="nameServerComboBox" HorizontalAlignment="Left" Margin="400,70,0,0" VerticalAlignment="Top" Width="190" SelectedIndex="0">
+            <ComboBoxItem ToolTipService.ToolTip="google-public-dns-a.google.com" Content="8.8.8.8"/>
+            <ComboBoxItem ToolTipService.ToolTip="google-public-dns-b.google.com" Content="8.8.4.4"/>
+            <ComboBoxItem ToolTipService.ToolTip="dns2.bluewin.ch" Content="195.186.1.111"/>
+            <ComboBoxItem ToolTipService.ToolTip="dns4.bluewin.ch" Content="195.186.4.111"/>
+            <ComboBoxItem ToolTipService.ToolTip="resolver1.opendns.com" Content="208.67.222.222"/>
+            <ComboBoxItem ToolTipService.ToolTip="resolver2.opendns.com" Content="208.67.220.220"/>
+            <ComboBoxItem ToolTipService.ToolTip="ns1.smilesolutions.ch" Content="185.4.168.120"/>
+            <ComboBoxItem ToolTipService.ToolTip="ns2.smilesolutions.ch" Content="5.148.172.104"/>
+            <ComboBoxItem ToolTipService.ToolTip="ns3.smilesolutions.ch" Content="176.10.115.230"/>
+            <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.eu" Content="134.213.136.39"/>
+            <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.de" Content="213.9.23.254"/>
+            <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.com" Content="167.114.239.152"/>
+        </ComboBox>
+        <Button x:Name="Button" Click="Button_Click" Content="Prüfen" HorizontalAlignment="Left" Margin="630,70
+                ,0,0" VerticalAlignment="Top" Width="100"/>
+        <TabControl Margin="20,115,20,20">
+            <TabItem Header="WhoIs">
+                <TextBox Name="whoIsTextBox" IsReadOnly="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Padding="5"/>
+            </TabItem>
+            <TabItem Header="SOA / Nameserver / MX">
+                <TextBox Name="nameserverTextBox" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            </TabItem>
+            <TabItem Header="A-/CNAME-Records">
+                <TextBox Name="aCnameRecords" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            </TabItem>
+            <TabItem Header="TXT">
+                <TextBox Name="txtRecords" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            </TabItem>
+            <TabItem Header="SRV">
+                <TextBox Name="srvRecords" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
