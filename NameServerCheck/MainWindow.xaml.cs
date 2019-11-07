@@ -20,7 +20,7 @@ namespace NameServerCheck
         #region Eventhandler Buttons
         
         /// <summary>
-        /// Prüfen
+        /// Lookup
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
