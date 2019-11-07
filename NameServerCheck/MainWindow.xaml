@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NameServerCheck"
         mc:Ignorable="d"
-        Title="Name Server Check" Height="600" Width="800" MinWidth="800" MinHeight="600">
+        Title="Name Server Check" Height="600" Width="800" MinWidth="800" MinHeight="600" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <TextBlock Margin="0,20,0,0" Text="Server Information Lookup" FontSize="26" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" d:IsLocked="True"/>
         <TextBlock HorizontalAlignment="Left" Margin="300,70,0,0" Text="Nameserver:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
