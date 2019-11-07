@@ -60,7 +60,7 @@ namespace NameServerCheck
                 {
                     whoisClient.Connect(DomainLookup(ReturnEndingFromDomain(domainTextBox.Text)), 43);
 
-                    string strDomain = domainTextBox.Text.ToString() + Environment.NewLine; //"domain " +
+                    string strDomain = domainTextBox.Text.ToString() + Environment.NewLine;
                     byte[] arrDomain = Encoding.ASCII.GetBytes(strDomain.ToCharArray());
 
                     Stream objStream = whoisClient.GetStream();
@@ -204,5 +204,15 @@ namespace NameServerCheck
             if (e.Key == System.Windows.Input.Key.Enter)
                 Button_Click(sender, null);
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            FormHelper.LoadFormSettings(this);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            FormHelper.SaveFormSettings(this);
+        }        
     }
 }
