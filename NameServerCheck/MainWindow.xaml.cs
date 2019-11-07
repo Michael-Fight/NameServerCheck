@@ -7,6 +7,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Windows;
+using System.Reflection;
+using System.Resources;
 
 namespace NameServerCheck
 {
@@ -14,18 +16,31 @@ namespace NameServerCheck
     {
         public MainWindow()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) =>
+            {
+                string resourceName = new AssemblyName(args.Name).Name + ".dll";
+                string resource = Array.Find(this.GetType().Assembly.GetManifestResourceNames(), element => element.EndsWith(resourceName));
+
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+                {
+                    Byte[] assemblyData = new Byte[stream.Length];
+                    stream.Read(assemblyData, 0, assemblyData.Length);
+                    return Assembly.Load(assemblyData);
+                }
+            };
+
             InitializeComponent();
         }
 
         #region Eventhandler Buttons
-        
+
         /// <summary>
         /// Lookup
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void Button_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             WhoIsLookup();
 
             nameserverTextBox.Text = GetDnsRecord(GetDomain(), DnsQType.SOA);
@@ -175,7 +190,7 @@ namespace NameServerCheck
         }
 
         private string DomainLookup(string key)
-        {
+        {           
             StreamReader sr = new StreamReader(@"whois-servers.txt");
             string server = sr.ReadLine();
             string[] data;
