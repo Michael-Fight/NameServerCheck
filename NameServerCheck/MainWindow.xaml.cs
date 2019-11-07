@@ -191,9 +191,10 @@ namespace NameServerCheck
 
         private string DomainLookup(string key)
         {
+            string strResourceName = Properties.Resources.whois_servers;
             string line;
             Dictionary<string, string> ServerList = new Dictionary<string, string>();
-            using (StreamReader reader = new StreamReader("whois-servers.txt"))
+            using (StreamReader reader = new StreamReader(strResourceName))
             {
                 line = reader.ReadLine();
                 string[] data;
@@ -214,7 +215,8 @@ namespace NameServerCheck
             if (ServerList.ContainsKey(key))
                 return ServerList[key];
 
-            return "whois.nic.ch";
+            return "whois.nic.ch";        
+            
             /*StreamReader sr = new StreamReader(@"whois-servers.txt");
             string server = sr.ReadLine();
             string[] data;
