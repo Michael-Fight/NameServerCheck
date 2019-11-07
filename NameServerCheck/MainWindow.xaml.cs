@@ -190,8 +190,32 @@ namespace NameServerCheck
         }
 
         private string DomainLookup(string key)
-        {           
-            StreamReader sr = new StreamReader(@"whois-servers.txt");
+        {
+            string line;
+            Dictionary<string, string> ServerList = new Dictionary<string, string>();
+            using (StreamReader reader = new StreamReader("whois-servers.txt"))
+            {
+                line = reader.ReadLine();
+                string[] data;
+
+                while (line != null)
+                {
+                    if (!line.StartsWith(";"))
+                    {
+                        data = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (!ServerList.ContainsKey(data[0]))
+                            ServerList.Add(data[0], data[1]);
+                    }
+                    line = reader.ReadLine();
+                }
+                reader.Close();
+            }
+
+            if (ServerList.ContainsKey(key))
+                return ServerList[key];
+
+            return "whois.nic.ch";
+            /*StreamReader sr = new StreamReader(@"whois-servers.txt");
             string server = sr.ReadLine();
             string[] data;
             Dictionary<string, string> ServerList = new Dictionary<string, string>();
@@ -211,7 +235,7 @@ namespace NameServerCheck
             if (ServerList.ContainsKey(key))
                 return ServerList[key];
 
-            return "whois.nic.ch";
+            return "whois.nic.ch";*/
         }
 
         private void domainTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
