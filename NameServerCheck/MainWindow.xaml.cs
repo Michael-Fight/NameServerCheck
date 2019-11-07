@@ -5,10 +5,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Text;
 using System.Windows;
-using System.Reflection;
-using System.Resources;
 
 namespace NameServerCheck
 {
@@ -190,23 +189,19 @@ namespace NameServerCheck
         }
 
         private string DomainLookup(string key)
-        {           
-            StreamReader sr = new StreamReader(@"whois-servers.txt");
-            string server = sr.ReadLine();
+        {
             string[] data;
             Dictionary<string, string> ServerList = new Dictionary<string, string>();
-
-            while (server != null)
+            string file = Properties.Resources.whois_servers;
+            foreach (var line in file.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None))
             {
-                if (!server.StartsWith(";"))
+                if (!line.StartsWith(";"))
                 {
-                    data = server.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    data = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     if (!ServerList.ContainsKey(data[0]))
                         ServerList.Add(data[0], data[1]);
                 }
-                server = sr.ReadLine();
             }
-            sr.Close();
 
             if (ServerList.ContainsKey(key))
                 return ServerList[key];
