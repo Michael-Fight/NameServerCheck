@@ -20,7 +20,7 @@ namespace NameServerCheck
         #region Eventhandler Buttons
         
         /// <summary>
-        /// Prüfen
+        /// Lookup
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -60,7 +60,7 @@ namespace NameServerCheck
                 {
                     whoisClient.Connect(DomainLookup(ReturnEndingFromDomain(domainTextBox.Text)), 43);
 
-                    string strDomain = domainTextBox.Text.ToString() + Environment.NewLine; //"domain " +
+                    string strDomain = domainTextBox.Text.ToString() + Environment.NewLine;
                     byte[] arrDomain = Encoding.ASCII.GetBytes(strDomain.ToCharArray());
 
                     Stream objStream = whoisClient.GetStream();
