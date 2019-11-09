@@ -190,8 +190,10 @@ namespace NameServerCheck
                     }
                 }
             }
-            catch (Exception) { }
-
+            catch (Exception)
+            {
+                MessageBox.Show("Local DNS not found", "System",MessageBoxButton.OK,MessageBoxImage.Error,MessageBoxResult.OK);
+            }
             return null;
         }
 
