@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Windows;
+using System.Net.NetworkInformation;
 
 namespace NameServerCheck
 {
@@ -172,6 +173,28 @@ namespace NameServerCheck
             return dnsServer;
         }
 
+        private IPAddress GetLocalDnsServer()
+        {
+            try
+            {
+                NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+                foreach (NetworkInterface ni in nics)
+                {
+                    if (ni.OperationalStatus == OperationalStatus.Up)
+                    {
+                        IPAddressCollection ips = ni.GetIPProperties().DnsAddresses;
+                        foreach (System.Net.IPAddress ip in ips)
+                        {
+                            return ip;
+                        }
+                    }
+                }
+            }
+            catch (Exception) { }
+
+            return null;
+        }
+
         private string GetDomain(string host = null)
         {
             string result = string.Empty;
@@ -221,6 +244,7 @@ namespace NameServerCheck
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FormHelper.LoadFormSettings(this);
+            CurrentNS.Content = GetLocalDnsServer();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

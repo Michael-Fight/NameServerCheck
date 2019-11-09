@@ -12,6 +12,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="20,70,0,0" Text="Domain:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox Name="domainTextBox" HorizontalAlignment="Left" Margin="90,70,0,0" VerticalAlignment="Top" Width="190" KeyUp="domainTextBox_KeyUp" Height="20"/>
         <ComboBox Name="nameServerComboBox" HorizontalAlignment="Left" Margin="400,70,0,0" VerticalAlignment="Top" Width="190" SelectedIndex="0">
+            <ComboBoxItem Name="CurrentNS" ToolTipService.ToolTip="CurrentNS" Content=""/>
             <ComboBoxItem ToolTipService.ToolTip="google-public-dns-a.google.com" Content="8.8.8.8"/>
             <ComboBoxItem ToolTipService.ToolTip="google-public-dns-b.google.com" Content="8.8.4.4"/>
             <ComboBoxItem ToolTipService.ToolTip="dns2.bluewin.ch" Content="195.186.1.111"/>
@@ -24,7 +25,6 @@
             <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.eu" Content="134.213.136.39"/>
             <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.de" Content="213.9.23.254"/>
             <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.com" Content="167.114.239.152"/>
-            <ComboBoxItem ToolTipService.ToolTip="CurrentNS" Content=""/>
         </ComboBox>
         <Button x:Name="Button" Click="Button_Click" Content="Lookup" HorizontalAlignment="Left" Margin="630,70
                 ,0,0" VerticalAlignment="Top" Width="100"/>
