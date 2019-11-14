@@ -246,7 +246,7 @@ namespace NameServerCheck
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FormHelper.LoadFormSettings(this);
-            CurrentNS.Content = GetLocalDnsServer();
+            CurrentDNS.Content = GetLocalDnsServer();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
