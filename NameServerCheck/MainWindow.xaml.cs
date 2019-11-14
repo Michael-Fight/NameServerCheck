@@ -243,6 +243,17 @@ namespace NameServerCheck
         }
 
         /// <summary>
+        /// Start Lookup with Enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NameServerComboBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+                Button_Click(sender, null);
+        }
+
+        /// <summary>
         /// Loads Window Parameters
         /// </summary>
         /// <param name="sender"></param>
@@ -261,6 +272,7 @@ namespace NameServerCheck
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             FormHelper.SaveFormSettings(this);
-        }        
+        }
+
     }
 }

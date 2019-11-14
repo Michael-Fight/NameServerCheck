@@ -12,7 +12,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="300,70,0,0" Text="Nameserver:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,70,0,0" Text="Domain:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBox Name="domainTextBox" KeyUp="DomainTextBox_KeyUp" HorizontalAlignment="Left" Margin="90,70,0,0" VerticalAlignment="Top" Width="190" Height="20"/>
-        <ComboBox Name="nameServerComboBox" HorizontalAlignment="Left" Margin="400,70,0,0" VerticalAlignment="Top" Width="190" SelectedIndex="0" IsEditable="True">
+        <ComboBox Name="nameServerComboBox" KeyUp="NameServerComboBox_KeyUp" HorizontalAlignment="Left" Margin="400,70,0,0" VerticalAlignment="Top" Width="190" SelectedIndex="0" IsEditable="True">
             <ComboBoxItem Name="CurrentDNS" ToolTipService.ToolTip="LocalDNS" Content=""/>
             <ComboBoxItem ToolTipService.ToolTip="google-public-dns-a.google.com" Content="8.8.8.8"/>
             <ComboBoxItem ToolTipService.ToolTip="google-public-dns-b.google.com" Content="8.8.4.4"/>
