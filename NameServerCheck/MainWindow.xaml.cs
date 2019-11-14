@@ -187,7 +187,11 @@ namespace NameServerCheck
             IPAddress dnsServer;
             if (IPAddress.TryParse(nameServerComboBox.Text, out dnsServer) == false)
             {
-                MessageBox.Show("Invalid DNS Server Address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                IPAddress[] addressList = Dns.GetHostAddresses(nameServerComboBox.Text);
+                foreach (IPAddress address in addressList)
+                {
+                    return address;
+                }
             }
             return dnsServer;
         }
