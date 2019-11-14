@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Input;
 using Whois;
 
 namespace NameServerCheck
@@ -42,27 +43,40 @@ namespace NameServerCheck
         {
             if (domainTextBox.Text != string.Empty)
             {
-                WhoIsLookup(ReturnConvertedDomain(domainTextBox.Text));
+                IsEnabled = false;
+                Mouse.OverrideCursor = Cursors.Wait;
 
-                nameserverTextBox.Text = GetDnsRecord(GetDomain(), DnsQType.SOA);
-                nameserverTextBox.Text += GetDnsRecord(GetDomain(), DnsQType.NS);
-                nameserverTextBox.Text += GetDnsRecord(GetDomain(), DnsQType.MX);
+                try
+                {
+                    WhoIsLookup(ReturnConvertedDomain(domainTextBox.Text));
 
-                List<string> aAndCNameRecords = new List<string>();
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain(), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("www"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("ftp"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("mail"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("pop"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("pop3"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("imap"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("smtp"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("webmail"), DnsQType.A));
-                aAndCNameRecords.Add(GetDnsRecord(GetDomain("autodiscover"), DnsQType.A));
-                aCnameRecords.Text = string.Join(Environment.NewLine, aAndCNameRecords.FindAll(f => !string.IsNullOrWhiteSpace(f.Trim())));
+                    nameserverTextBox.Text = GetDnsRecord(GetDomain(), DnsQType.SOA);
+                    nameserverTextBox.Text += GetDnsRecord(GetDomain(), DnsQType.NS);
+                    nameserverTextBox.Text += GetDnsRecord(GetDomain(), DnsQType.MX);
 
-                txtRecords.Text = GetDnsRecord(GetDomain(), DnsQType.TXT);
-                srvRecords.Text = GetDnsRecord(GetDomain(), DnsQType.SRV);
+                    List<string> aAndCNameRecords = new List<string>();
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain(), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("www"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("ftp"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("mail"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("pop"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("pop3"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("imap"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("smtp"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("webmail"), DnsQType.A));
+                    aAndCNameRecords.Add(GetDnsRecord(GetDomain("autodiscover"), DnsQType.A));
+                    aCnameRecords.Text = string.Join(Environment.NewLine, aAndCNameRecords.FindAll(f => !string.IsNullOrWhiteSpace(f.Trim())));
+
+                    txtRecords.Text = GetDnsRecord(GetDomain(), DnsQType.TXT);
+                    srvRecords.Text = GetDnsRecord(GetDomain(), DnsQType.SRV);
+                }
+                finally
+                {
+                    Mouse.OverrideCursor = null;
+                    IsEnabled = true;
+                }
+
+
             }
         }
 
