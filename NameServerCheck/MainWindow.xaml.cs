@@ -2,14 +2,11 @@
 using Bdev.Net.Dns.Records;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-using System.Reflection;
-using System.Text;
-using System.Windows;
-using System.Net.NetworkInformation;
 using System.Globalization;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Windows;
 using Whois;
 
 namespace NameServerCheck
@@ -43,7 +40,7 @@ namespace NameServerCheck
         /// <param name="e"></param>
         public void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(domainTextBox.Text != string.Empty)
+            if (domainTextBox.Text != string.Empty)
             {
                 WhoIsLookup(ReturnConvertedDomain(domainTextBox.Text));
 
@@ -215,7 +212,7 @@ namespace NameServerCheck
             }
             catch (Exception)
             {
-                MessageBox.Show("Local DNS not found", "System",MessageBoxButton.OK,MessageBoxImage.Error,MessageBoxResult.OK);
+                MessageBox.Show("Local DNS not found", "System", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
             return null;
         }
@@ -263,7 +260,7 @@ namespace NameServerCheck
             FormHelper.LoadFormSettings(this);
             CurrentDNS.Content = GetLocalDnsServer();
         }
-        
+
         /// <summary>
         /// Saves Window Parameters
         /// </summary>
