@@ -59,34 +59,5 @@ namespace NameServerCheck.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ;WHOIS Servers List
-        ///;Maintained by Nir Sofer
-        ///;This servers list if freely available for any use and without any restriction. 
-        ///;For more information: http://www.nirsoft.net/whois_servers_list.html
-        ///;Last updated on 16/02/2016
-        ///ac whois.nic.ac
-        ///ad whois.ripe.net
-        ///ae whois.aeda.net.ae
-        ///aero whois.aero
-        ///af whois.nic.af
-        ///ag whois.nic.ag
-        ///ai whois.ai
-        ///al whois.ripe.net
-        ///am whois.amnic.net
-        ///as whois.nic.as
-        ///asia whois.nic.asia
-        ///at whois.nic.at
-        ///au whois.aunic.net
-        ///aw whois.nic.aw
-        ///ax whois.ax 
-        ///az whois.ripe.ne [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string whois_servers {
-            get {
-                return ResourceManager.GetString("whois_servers", resourceCulture);
-            }
-        }
     }
 }

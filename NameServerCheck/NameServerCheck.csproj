@@ -56,6 +56,14 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="Tokenizer">
+      <HintPath>library\Tokenizer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Whois">
+      <HintPath>library\Whois.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -110,7 +118,10 @@
     <Resource Include="smiso.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="library\whois-servers.txt" />
+    <EmbeddedResource Include="library\Whois.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="library\Tokenizer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

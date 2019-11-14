@@ -10,6 +10,7 @@ using System.Text;
 using System.Windows;
 using System.Net.NetworkInformation;
 using System.Globalization;
+using Whois;
 
 namespace NameServerCheck
 {
@@ -101,25 +102,10 @@ namespace NameServerCheck
             whoIsTextBox.Text = string.Empty;
             try
             {
-                using (TcpClient whoisClient = new TcpClient())
+                using (var whois = new WhoisLookup())
                 {
-                    whoisClient.Connect(DomainLookup(ReturnEndingFromDomain(uri)), 43);
-
-                    string strDomain = uri.ToString() + Environment.NewLine;
-                    byte[] arrDomain = Encoding.ASCII.GetBytes(strDomain.ToCharArray());
-
-                    Stream objStream = whoisClient.GetStream();
-                    objStream.Write(arrDomain, 0, strDomain.Length);
-
-                    StreamReader objSr = new StreamReader(whoisClient.GetStream(), Encoding.ASCII);
-
-                    string strServerResponse = string.Empty;
-
-                    List<string> whoisData = new List<string>();
-                    while (null != (strServerResponse = objSr.ReadLine()))
-                    {
-                        whoIsTextBox.Text += strServerResponse + Environment.NewLine;
-                    }
+                    var response = whois.Lookup(uri);
+                    whoIsTextBox.Text = response.Content;
                 }
             }
             catch (Exception ex)
@@ -239,35 +225,6 @@ namespace NameServerCheck
             result += ReturnConvertedDomain(domainTextBox.Text);
 
             return result;
-        }
-
-        private string ReturnEndingFromDomain(string value)
-        {
-            string domainFromText = domainTextBox.Text;
-            domainFromText = domainFromText.Substring(domainFromText.LastIndexOf('.'));
-            domainFromText = domainFromText.Substring(1);
-            return domainFromText;
-        }
-
-        private string DomainLookup(string key)
-        {
-            string[] data;
-            Dictionary<string, string> ServerList = new Dictionary<string, string>();
-            string file = Properties.Resources.whois_servers;
-            foreach (var line in file.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None))
-            {
-                if (!line.StartsWith(";"))
-                {
-                    data = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (!ServerList.ContainsKey(data[0]))
-                        ServerList.Add(data[0], data[1]);
-                }
-            }
-
-            if (ServerList.ContainsKey(key))
-                return ServerList[key];
-
-            return "whois.nic.ch";
         }
 
         /// <summary>
