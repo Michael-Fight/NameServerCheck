@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NameServerCheck"
         mc:Ignorable="d"
+        FocusManager.FocusedElement="{Binding ElementName=domainTextBox}"
         Title="Name Server Check" Height="600" Width="800" MinWidth="800" MinHeight="600" Closing="Window_Closing" Loaded="Window_Loaded">
     <Grid>
         <TextBlock Margin="0,20,0,0" Text="Server Information Lookup" FontSize="26" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" d:IsLocked="True"/>
         <TextBlock HorizontalAlignment="Left" Margin="300,70,0,0" Text="Nameserver:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="20,70,0,0" Text="Domain:" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBox Name="domainTextBox" HorizontalAlignment="Left" Margin="90,70,0,0" VerticalAlignment="Top" Width="190" KeyUp="domainTextBox_KeyUp" Height="20"/>
-        <ComboBox Name="nameServerComboBox" HorizontalAlignment="Left" Margin="400,70,0,0" VerticalAlignment="Top" Width="190" SelectedIndex="0">
+        <TextBox Name="domainTextBox" KeyUp="DomainTextBox_KeyUp" HorizontalAlignment="Left" Margin="90,70,0,0" VerticalAlignment="Top" Width="190" Height="20"/>
+        <ComboBox Name="nameServerComboBox" HorizontalAlignment="Left" Margin="400,70,0,0" VerticalAlignment="Top" Width="190" SelectedIndex="0" IsEditable="True">
             <ComboBoxItem Name="CurrentDNS" ToolTipService.ToolTip="LocalDNS" Content=""/>
             <ComboBoxItem ToolTipService.ToolTip="google-public-dns-a.google.com" Content="8.8.8.8"/>
             <ComboBoxItem ToolTipService.ToolTip="google-public-dns-b.google.com" Content="8.8.4.4"/>
@@ -29,14 +30,14 @@
         <Button x:Name="Button" Click="Button_Click" Content="Lookup" HorizontalAlignment="Left" Margin="630,70
                 ,0,0" VerticalAlignment="Top" Width="100"/>
         <TabControl Margin="20,115,20,20">
+            <TabItem Header="A-/CNAME-Records">
+                <TextBox Name="aCnameRecords" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
+            </TabItem>
             <TabItem Header="WhoIs">
                 <TextBox Name="whoIsTextBox" IsReadOnly="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" Padding="5"/>
             </TabItem>
             <TabItem Header="SOA / Nameserver / MX">
                 <TextBox Name="nameserverTextBox" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
-            </TabItem>
-            <TabItem Header="A-/CNAME-Records">
-                <TextBox Name="aCnameRecords" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>
             </TabItem>
             <TabItem Header="TXT">
                 <TextBox Name="txtRecords" IsReadOnly="True" Padding="5" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>

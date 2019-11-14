@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Net.NetworkInformation;
+using System.Globalization;
 
 namespace NameServerCheck
 {
@@ -43,7 +44,7 @@ namespace NameServerCheck
         {
             if(domainTextBox.Text != string.Empty)
             {
-                WhoIsLookup();
+                WhoIsLookup(ReturnConvertedDomain(domainTextBox.Text));
 
                 nameserverTextBox.Text = GetDnsRecord(GetDomain(), DnsQType.SOA);
                 nameserverTextBox.Text += GetDnsRecord(GetDomain(), DnsQType.NS);
@@ -69,16 +70,42 @@ namespace NameServerCheck
 
         #endregion
 
-        public void WhoIsLookup()
+        /// <summary>
+        /// Converts Domain special characters
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <returns></returns>
+        public string ReturnConvertedDomain(string uri)
+        {
+            string[] domain = { uri };
+            IdnMapping idn = new IdnMapping();
+
+            foreach (var name in domain)
+            {
+                try
+                {
+                    string punyCode = idn.GetAscii(name);
+                    string name2 = idn.GetUnicode(punyCode);
+                    return punyCode;
+                }
+                catch (ArgumentException)
+                {
+                    MessageBox.Show("{0} is not a valid domain name.", name);
+                }
+            }
+            return domainTextBox.Text;
+        }
+
+        public void WhoIsLookup(string uri)
         {
             whoIsTextBox.Text = string.Empty;
             try
             {
                 using (TcpClient whoisClient = new TcpClient())
                 {
-                    whoisClient.Connect(DomainLookup(ReturnEndingFromDomain(domainTextBox.Text)), 43);
+                    whoisClient.Connect(DomainLookup(ReturnEndingFromDomain(uri)), 43);
 
-                    string strDomain = domainTextBox.Text.ToString() + Environment.NewLine;
+                    string strDomain = uri.ToString() + Environment.NewLine;
                     byte[] arrDomain = Encoding.ASCII.GetBytes(strDomain.ToCharArray());
 
                     Stream objStream = whoisClient.GetStream();
@@ -101,6 +128,12 @@ namespace NameServerCheck
             }
         }
 
+        /// <summary>
+        /// Gets DNSType
+        /// </summary>
+        /// <param name="uri"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public string GetDnsRecord(string uri, DnsQType type)
         {
             string result = string.Empty;
@@ -203,7 +236,7 @@ namespace NameServerCheck
             if (!string.IsNullOrEmpty(host))
                 result += host + ".";
 
-            result += domainTextBox.Text;
+            result += ReturnConvertedDomain(domainTextBox.Text);
 
             return result;
         }
@@ -237,18 +270,33 @@ namespace NameServerCheck
             return "whois.nic.ch";
         }
 
-        private void domainTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        /// <summary>
+        /// Start Lookup with Enter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DomainTextBox_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == System.Windows.Input.Key.Enter)
                 Button_Click(sender, null);
         }
 
+        /// <summary>
+        /// Loads Window Parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FormHelper.LoadFormSettings(this);
             CurrentDNS.Content = GetLocalDnsServer();
         }
-
+        
+        /// <summary>
+        /// Saves Window Parameters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             FormHelper.SaveFormSettings(this);
