@@ -43,6 +43,7 @@ namespace NameServerCheck
         {
             if (domainTextBox.Text != string.Empty)
             {
+                domainTextBox.Text = domainTextBox.Text.Trim();
                 IsEnabled = false;
                 Mouse.OverrideCursor = Cursors.Wait;
 
