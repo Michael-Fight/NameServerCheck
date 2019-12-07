@@ -26,6 +26,7 @@
             <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.eu" Content="134.213.136.39"/>
             <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.de" Content="213.9.23.254"/>
             <ComboBoxItem ToolTipService.ToolTip="ns.rackspeed-cloud.com" Content="167.114.239.152"/>
+            
         </ComboBox>
         <Button x:Name="Button" Click="Button_Click" Content="Lookup" HorizontalAlignment="Left" Margin="630,70
                 ,0,0" VerticalAlignment="Top" Width="100"/>
